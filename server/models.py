@@ -15,40 +15,46 @@ db = SQLAlchemy(metadata=metadata)
 class Car(db.Model, SerializerMixin):
     __tablename__ = '-cars'
     
-    customers = association_proxy('dealerships', 'customer')
-    serialize_rules = ('-dealerships', '-customers.cars')
+    customers = association_proxy('dealership_cars', 'dealerships')
+    serialize_rules = ('-dealership_cars', '-dealerships.cars')
     
     id = db.Column(db.Integer, primary_key=True)
-    name= db.Column(db.String)
+    make = db.Column(db.String)
+    model = db.Column(db.String)
+    year = db.Column(db.Integer)
     price = db.Column(db.Integer)
+    used = db.Column(db.Boolean)
+    image = db.Column(db.String)
     created_at = db.Column(db.DateTime, server_default = db.func.now())
     updated_at = db.Column(db.DateTime, onupdate = db.func.now())
+#relationship
+    dealerships = db.relationship('Dealership_car', backref = 'car')
 
-    dealerships = db.relationship('Dealership', backref = 'car')
+class Dealership(db.Model, SerializerMixin):
+    __tablename__ = 'dealerships'
 
-class Customer(db.Model, SerializerMixin):
-    __tablename__ = 'customers'
-
-    cars = association_proxy('dealerships', 'cars')
-    serialize_rules = ('-dealerships', '-cars.customers')
+    cars = association_proxy('dealership_cars', 'cars')
+    serialize_rules = ('-dealership_cars', '-cars.dealerships')
 
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
-    phone_number = db.Column(db.Integer)
+    location = db.Column(db.String)
     created_at = db.Column(db.DateTime, server_default = db.func.now())
     updated_at = db.Column(db.DateTime, onupdate = db.func.now())
+#relationship
+    dealerships = db.relationship('Dealership_car', backref = 'dealership')
 
-    dealerships = db.relationship('Dealership', backref = 'customer')
-
-class Dealership(db.Model, SerializerMixin):
-    __tablename__ = 'dealerships'
-    serialize_rules = ('-customer.cars', '-car.customers', '-customer.dealerships', '-car.dealerships')
+#Dealership Model
+class DealershipCar(db.Model, SerializerMixin):
+    __tablename__ = 'dealership_cars'
+    serialize_rules = ('-dealership.cars', '-car.dealerships', '-car.dealership_cars', '-dealership.dealership_cars')
 
     id = db.Column(db.Integer, primary_key=True)
-    customer_id = db.Column(db.Integer, db.ForeignKey("customer.id"))
-    dealership_id = db.Column(db.Integer, db.ForeignKey("dealership.id"))
     created_at = db.Column(db.DateTime, server_default = db.func.now())
     updated_at = db.Column(db.DateTime, onupdate = db.func.now())
 
-# Models go here!
+#foreign keys
+    dealership_id = db.Column(db.Integer, db.ForeignKey("dealership.id"))
+    car_id = db.Column(db.Integer, db.ForeignKey("car.id"))
+

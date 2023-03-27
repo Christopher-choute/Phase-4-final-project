@@ -1,16 +1,35 @@
-#!/usr/bin/env python3
+from flask import Flask, make_response, request, jsonify
+from flask_migrate import Migrate
+from flask_restful import Api, Resource
 
-# Standard library imports
+from models import db, Car, Dealership, Customer
 
-# Remote library imports
-from flask import request
-from flask_restful import Resource
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.json.compact = False
 
-# Local imports
-from config import app, db, api
-from models import User, Recipe
+migrate = Migrate(app, db)
 
-# Views go here!
+db.init_app(app)
+
+api = Api(app)
+
+@app.route('/')
+def home():
+    return ''
+
+@app.route('/cars', methods=['GET'])
+def car():
+    cars = Car.query.all()
+    cars_dict = [car.to_dict() for car in cars]
+
+    response = make_response(
+        jsonify(cars_dict),
+        200
+    )
+
+    return response
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
