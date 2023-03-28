@@ -1,17 +1,9 @@
-import React, {useState,useEffect} from "react"
-import Nav from './Nav'
-import Header from './Header'
-
-
-
-
+import React from "react";
 
 function Home(){
     return (
         <div>
-            <Header />
-            <Nav />
-            <p>Welcome to New York Customs. Feel free to buy or sell a car.</p>
+            <h1>This is the Home Page</h1>
         </div>
     )
 }
