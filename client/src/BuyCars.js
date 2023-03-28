@@ -1,33 +1,27 @@
-import React, {useState,useEffect} from "react"
-import CarSlot from './CarSlot'
+import React from "react";
+import CarSlot from './CarSlot';
 
-useEffect(() => {
-    fetch("localhost")
-    .then(res => res.json())
-    .then((cars) => manyCars(cars))
-  },[]);
-
-function manyCars(cars){
-    carData = cars.map((car) => {
+ 
+function BuyCars({cars}){
+    const carList = cars.map((car) => {
         return (
-            <CarSlot 
-            make={car.make}
-            model={car.model}
-            year={car.year}
-            used={car.new}
-            image={car.image}
+            <CarSlot
+            key = {car.id}
+            make = {car.make}
+            model = {car.model}
+            year = {car.year}
+            price = {car.price}
+            used = {car.used}
+            image = {car.image}
             />
-        );
-    });
-}
+        )
+    })
 
-   
-function BuyCars(){
+    
     return (
-        <div className = 'Cars'>
-            {carData}
-        </div>
-    )
+        
+        <ul className = "cars">{carList}</ul>     
+    );
 }
 
 export default BuyCars;

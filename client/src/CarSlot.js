@@ -1,20 +1,16 @@
-import React, {useState,useEffect} from "react"
+import React from "react";
 
-function carUsed(used)
-    return 
-
-function CarSlot(make, model, year, used, image){
+/////Car Slot (list) Component ////////
+function CarSlot({make, model, year, used, image}){
     return (
-        <div>
-            <div>
-                <p>{image}</p>
-                <p>Make: {make}</p>
-                <p>Model: {model}</p>
-                <p>Year: {year}</p>
-                <p>Condition: {used ? 'This Car is Used' : "This Car is Brand New"}</p>
-            </div>
-        </div>
-    )
+        <li>
+            <img src = {image} />
+            <p>Make: {make}</p>
+            <p>Model: {model}</p>
+            <p>Year: {year}</p>
+            <p>Condition: {used ? 'This Car is Used' : "This Car is Brand New"}</p>
+        </li>
+    );
 }
 
 export default CarSlot;

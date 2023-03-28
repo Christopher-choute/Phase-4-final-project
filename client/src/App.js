@@ -1,9 +1,7 @@
-import React, {useState,useEffect} from "react"
-import Home from './Home'
+import React from "react";
+import Home from './Home';
 
-
-
-
+////////App Component///////
 function App() {
   return (
     <div className="App">
