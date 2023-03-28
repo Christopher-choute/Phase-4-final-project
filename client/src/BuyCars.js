@@ -2,7 +2,7 @@ import React, {useState,useEffect} from "react"
 import CarSlot from './CarSlot'
 
 useEffect(() => {
-    fetch("localhost")
+    fetch("http://127.0.0.1:5555/cars")
     .then(res => res.json())
     .then((cars) => manyCars(cars))
   },[]);
