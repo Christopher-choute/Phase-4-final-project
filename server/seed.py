@@ -8,6 +8,10 @@ from models import db, Dealership, Car, DealershipCar
 
 with app.app_context():
 
+    print("Deleting data...")
+    Car.query.delete()
+    Dealership.query.delete()
+    DealershipCar.query.delete()
 
     print("Starting seed...")
 
@@ -124,7 +128,7 @@ with app.app_context():
     db.session.add_all(cars)
     db.session.add_all(dealerships)
     db.session.add_all(dealershipCars)
-    db.session.commit
+    db.session.commit()
 
     print("Seeding done!...")
     
