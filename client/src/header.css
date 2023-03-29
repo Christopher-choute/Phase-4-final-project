@@ -1,12 +1,32 @@
 .header {
     text-align: center;
     margin-top: 50px;
+    /* Checkered */
+    background-image:linear-gradient(45deg, #000000 25%, transparent 25%), linear-gradient(-45deg, #000000 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #000000 75%), linear-gradient(-45deg, transparent 75%, #000000 75%); 
+    /* background:  */
+  /* repeating-linear-gradient(
+    to right, transparent, 
+    transparent 50px, 
+    white 50px, 
+    white 55px
+  ),
+  repeating-linear-gradient(
+    to bottom, transparent,  
+    transparent 50px, 
+    white 50px, 
+    white 55px
+  ),
+  linear-gradient(45deg, pink, skyblue); */
+  /* more styles */
+   /* background: url("https://www.freewebheaders.com/wp-content/gallery/cars/blue-bmw-alpina-b6-xdrive-gran-coupe-car-web-header.jpg"); */
+   /* background-size: cover; */
+   
   }
   
 h1 {
     font-size: 3rem;
     font-weight: bold;
-    text-transform: uppercase;
+
     letter-spacing: 0.2em;
     text-align: center;
   }
@@ -18,3 +38,10 @@ h2 {
     text-align: center;
   }
   
+.headerImg{
+  width: 10%;
+  height: 150px;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border-radius: 5%;
+}

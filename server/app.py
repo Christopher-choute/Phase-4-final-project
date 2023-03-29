@@ -21,39 +21,106 @@ api = Api(app)
 def home():
     return ''
 
-@app.route('/cars', methods=['GET'])
+@app.route('/cars', methods=['GET', 'POST'])
 def car():
     cars = Car.query.all()
-    cars_dict = [car.to_dict() for car in cars]
+    if request.method == 'GET':
+        cars_dict = [car.to_dict() for car in cars]
 
-    response = make_response(
-        jsonify(cars_dict),
-        200
-    )
+        response = make_response(
+            jsonify(cars_dict),
+            200
+        )
 
+        return response
+    
+
+    elif request.method == 'POST':
+
+        try:
+            new_car = Car(
+                make = request.get_json()['make'],
+                model = request.get_json()['model'],
+                year = request.get_json()['year'],
+                price = request.get_json()['price'],
+                image = request.get_json()['image']
+            )
+            db.session.add(new_car)
+            db.session.commit()
+
+            response = make_response(
+                jsonify(new_car),
+                201
+            )
+
+        except ValueError:
+
+            response = make_response(
+                {"error": "validation errors"},
+                400
+            )
     return response
 
-@app.route('/dealership', methods=['GET'])
-def dealership():
-    dealerships = Dealership.query.all()
-    dealerships_dict = [dealership.to_dict() for dealership in dealerships]
 
-    response = make_response(
-        jsonify(dealerships_dict),
-        200
-    )
+@app.route('/cars/<int:id>', methods=['GET', 'DELETE'])
+def carById(id):
+    car = Car.query.filter_by(id=id).first()
 
-    return response
+    if request.method == 'GET':
+        if car:
+            car_dict = car.to_dict() 
 
-@app.route('/dealership_cars', methods=['GET'])
-def dealershipCars():
-    dealership_cars = DealershipCar.query.all()
-    dealership_cars_dict = [dealership_car.to_dict() for dealership_car in dealership_cars]
+            response = make_response(
+                jsonify(car_dict),
+                    200
+            )
+        else:
+            response = make_response(
+                {"error": "Car not fount"},
+                404
+            )
 
-    response = make_response(
-        jsonify(dealership_cars_dict),
-        200
-    )
+        return response
+    
+    elif request.method == 'DELETE':
+        if car:
+            db.session.delete(car)
+            db.session.commit
+
+            response = make_response(
+                {},
+                200
+            )
+        else:
+            response = make_response(
+                {"error": "Car not fount"},
+                404
+            )
+
+        return response
+    
+        
+# @app.route('/dealership', methods=['GET'])
+# def dealership():
+#     dealerships = Dealership.query.all()
+#     dealerships_dict = [dealership.to_dict() for dealership in dealerships]
+
+#     response = make_response(
+#         jsonify(dealerships_dict),
+#         200
+#     )
+
+#     return response
+
+# @app.route('/dealership_cars', methods=['GET'])
+# def dealershipCars():
+#     dealership_cars = DealershipCar.query.all()
+#     dealership_cars_dict = [dealership_car.to_dict() for dealership_car in dealership_cars]
+
+#     response = make_response(
+#         jsonify(dealership_cars_dict),
+#         200
+#     )
 
     return response
 

@@ -4,12 +4,14 @@ import Header from './Header';
 import Nav from './Nav';
 import SellCars from './SellCars';
 import Home from './Home'
-
+import Car from './Car';
 
 import {Route, Switch} from "react-router-dom"
 
 ////////App Component///////
 function App() {
+
+
   return (
     <div className="App">
       <Switch>
@@ -19,19 +21,7 @@ function App() {
           <Nav />
           <Home />
         </Route>
-
-        <Route exact path="/Cars">
-          <Header />
-          <Nav />
-          <GetData />
-        </Route>
-
-        <Route exact path="/SellCars">
-          <Header />
-          <Nav />
-          <SellCars />
-        </Route>
-
+        <GetData />
 
       </Switch>  
     </div>
