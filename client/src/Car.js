@@ -1,6 +1,7 @@
 import React from 'react'
 import {useState,useEffect} from "react";
 import {Route, Switch, useParams} from "react-router-dom"
+import './Car.css'
 
 function Car(){
     const { id } = useParams();
@@ -29,8 +30,14 @@ function Car(){
       }
 
     return(
-        <div>
-            <p>Make: {make}</p>
+        <div className = 'cont'>
+            <img src = {image} className = 'carImg'/>
+            <h1>Make: {make}</h1>
+            <h1>Model: {model}</h1>
+            <h2 className ='h2' > Year: {year}</h2>
+            <h2 className ='h2'>Price: ${price}</h2>
+            <h2 className ='h2'>Condition: {used ? 'This Car is Used' : "This Car is Brand New"}</h2>
+            <button className = 'btn' >BUY</button>
         </div>
     )
 }

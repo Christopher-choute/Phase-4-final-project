@@ -74,7 +74,7 @@ function SellCars({handleNewCar}){
     
     
     return (
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} style={{ maxWidth: '1000px' }}>
             <h3 id ="form-title">Sell a car!</h3>
             <Form.Field>
                 <label>Make: </label>

@@ -1,10 +1,12 @@
 .search-container{
     text-align: center;
+    position: relative;
 }
+
+
 
 .search-input{
     width: 300px;
     height: 35px;
-
 }
 

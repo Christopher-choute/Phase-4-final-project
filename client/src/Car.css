@@ -1,0 +1,20 @@
+.carImg{
+    width: 40%;
+    height: 30%;
+    padding: 2%;
+    left: 30%;
+    position: relative;
+}
+
+.h2{
+    font-size: 150%;
+}
+
+.btn{
+    width: 25%;
+    height: 10%;
+    padding: 2%;
+    position: relative;
+    left: 38%;
+    font-size: 200%;
+}

@@ -7,17 +7,17 @@
 }
 .AboutMe{
   position: relative;
-  left: 40%; 
+  left: 40%;
 }
 
 .BuyCars{
   position: relative;
-  left: 40%;
+  left: 42.5%;
 }
 
 .SellCars{
-  position: relative;
-  left: 40%;
+  position: absolute;
+  left: 55%;
 }
 
 button {
