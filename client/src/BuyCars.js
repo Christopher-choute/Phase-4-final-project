@@ -17,6 +17,7 @@ function BuyCars({cars}){
             used = {car.used}
             image = {car.image}
             /> 
+            
         )
     })
 

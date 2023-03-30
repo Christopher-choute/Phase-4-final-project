@@ -1,11 +1,12 @@
-import React, {useState} from "react";
-import {useHistory} from "react-router-dom"
+import React, {useState ,useEffect} from "react";
+import {useHistory ,useParams} from "react-router-dom"
 import {Form, Button} from"semantic-ui-react"
 // import {Formik,Field,ErrorMessage} from 'formik';
-import './sellCars.css'
+import './Edit.css'
 
-function SellCars({handleNewCar}){
-
+function Edit({updateCar}){
+    const { id } = useParams();
+    const history = useHistory();
     const [make, setMake] = useState("");
     const [model, setModel] = useState("");
     const [price, setPrice] = useState("");
@@ -14,6 +15,9 @@ function SellCars({handleNewCar}){
     const [used, setUsed] = useState(false);
     const [val, setVal] = useState("")
     const [isLoading, updateIsLoading] = useState(false);
+    const [car, setCar] =useState([]);
+
+    // console.log(id)
 
     function handleMake(make) {
         setMake(make.target.value);
@@ -50,33 +54,40 @@ function SellCars({handleNewCar}){
 
     }
 
-      function handleSubmit(event){
-        event.preventDefault();
-        updateIsLoading(true);
-        fetch("http://localhost:5555/cars", {
-            method: "POST",
+    function handlePatch(id){
+        fetch(`/cars/${id}`, {
+            method: "PATCH",
             headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                make: make,
-                model: model,
-                year: year,
-                price: price,
-                image: image,
-                used: used,
-              }),
-            }).then((response) => {
-                updateIsLoading(false);
-            });
+            body: JSON.stringify({make: make, model: model, year: year, price: price, image: image, used: used}),
+        }).then((res) => {
+            if (res.ok) {
+                res.json().then(updatedCar => {
+                    updateCar(updatedCar)
+                    history.push(`/cars`)
+                })
+            }
+        })
       }
-    
+      
+    useEffect(() => {
+        fetch(`/cars/${id}`)
+            .then(r => r.json())
+            .then(car => {
+                setMake(car.make)
+                setModel(car.model)
+                setPrice(car.price)
+                setYear(car.year) 
+                setImage(car.image)
+                setUsed(car.used)
+            })
+    }, [])
     
     
     return (
-            <Form onSubmit={handleSubmit} style={{ maxWidth: '1000px' }}>
-            <h3 id ="form-title">Sell a car!</h3>
+            <Form onSubmit={() => handlePatch(id)} style={{ maxWidth: '1000px' }}>
+            <h3 id ="form-title">Edit The Car!</h3>
             <Form.Field>
                 <label>Make: </label>
                 <input
@@ -143,9 +154,9 @@ function SellCars({handleNewCar}){
                     value = {val}
                 />
             </Form.Field>
-            <Button type="submit">Post your car!</Button>
+            <input type="submit" />
         </Form>
     );
 }
 
-export default SellCars;
+export default Edit;

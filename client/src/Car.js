@@ -3,7 +3,7 @@ import {useState,useEffect} from "react";
 import {Route, Switch, useParams} from "react-router-dom"
 import './Car.css'
 
-function Car(){
+function Car({deleteItem}){
     const { id } = useParams();
     const [singleCar, setSingleCar] = useState([]);
 
@@ -12,13 +12,30 @@ function Car(){
     const [year, setYear] = useState("");
     const [price, setPrice] = useState("");
     const [image, setImage] = useState("");
+    const [dealer, setDealer] =useState ("");
     const [used, setUsed] = useState(false);
 
     useEffect(() => {
-        fetch(`http://127.0.0.1:5555/cars/${id}`)
+        fetch(`/cars/${id}`)
         .then(res => res.json())
         .then((data) => getCar(data))
       },[]);
+
+    // useEffect(() => {
+    //   fetch(`http://127.0.0.1:5555/dealership_cars/${id}`)
+    //   .then(res => res.json())
+    //   .then((data) => getCar(data))
+    // },[]);
+      
+        // useEffect(() => {
+        //   fetch('http://127.0.0.1:5555/cars/${id}', 
+        //   { method: 'DELETE' })
+        //         .then(() => setStatus('Delete successful'));
+        
+        // }, []);
+    
+     console.log(id)
+
 
       function getCar(car) {
         setMake(car.make);
@@ -28,6 +45,9 @@ function Car(){
         setImage(car.image);
         setUsed(car.used);
       }
+      const linkStyle = {
+        textDecoration: "none"
+    }
 
     return(
         <div className = 'cont'>
@@ -37,9 +57,9 @@ function Car(){
             <h2 className ='h2' > Year: {year}</h2>
             <h2 className ='h2'>Price: ${price}</h2>
             <h2 className ='h2'>Condition: {used ? 'This Car is Used' : "This Car is Brand New"}</h2>
-            <button className = 'btn' >BUY</button>
+            <button onClick = {() => deleteItem(id)}   className = 'btn' >BUY (QTY: 1)</button>
         </div>
-    )
-}
+      )
 
+    }
 export default Car;

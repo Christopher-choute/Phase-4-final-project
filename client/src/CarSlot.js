@@ -6,6 +6,7 @@ function CarSlot({id, make, model, price, year, used, image}){
     const linkStyle= { 
         textDecoration: "none"
     }
+    
     return (
         <div className = "carslot" ><Link to={`cars/${id}` } style={linkStyle}>
             <img className ="Image" src = {image} alt = {make} />
@@ -15,6 +16,7 @@ function CarSlot({id, make, model, price, year, used, image}){
             <p>Year: {year}</p>
             <p>Condition: {used ? 'This Car is Used' : "This Car is Brand New"}</p>
             </Link>
+            <Link to={`/edit/${id}`} style={linkStyle} ><button>Edit</button></Link>
         </div>
     );
 }

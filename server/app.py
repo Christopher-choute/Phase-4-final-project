@@ -62,7 +62,7 @@ def car():
     return response
 
 
-@app.route('/cars/<int:id>', methods=['GET', 'DELETE'])
+@app.route('/cars/<int:id>', methods=['GET', 'DELETE', 'PATCH'])
 def carById(id):
     car = Car.query.filter_by(id=id).first()
 
@@ -83,46 +83,70 @@ def carById(id):
         return response
     
     elif request.method == 'DELETE':
-        if car:
-            db.session.delete(car)
-            db.session.commit
+        car = Car.query.filter(Car.id == id).first()
 
-            response = make_response(
-                {},
-                200
-            )
-        else:
+        if not car:
             response = make_response(
                 {"error": "Car not fount"},
                 404
             )
-
-        return response
-    
+            return response
         
-# @app.route('/dealership', methods=['GET'])
-# def dealership():
-#     dealerships = Dealership.query.all()
-#     dealerships_dict = [dealership.to_dict() for dealership in dealerships]
+        db.session.delete(car)
+        db.session.commit()
+        return make_response({'success':"DELETED"}, 200)
+    
+    elif request.method == 'PATCH':
+        car = Car.query.filter(Car.id == id).first()
 
-#     response = make_response(
-#         jsonify(dealerships_dict),
-#         200
-#     )
+        if not car:
+            response = make_response(
+                {"error": "Car not fount"},
+                404
+            )
+            return response
+        
+        for attr in request.get_json():
+            setattr(car, attr, request.get_json()[attr])
 
-#     return response
+        db.session.add(car)
+        db.session.commit()
 
-# @app.route('/dealership_cars', methods=['GET'])
-# def dealershipCars():
-#     dealership_cars = DealershipCar.query.all()
-#     dealership_cars_dict = [dealership_car.to_dict() for dealership_car in dealership_cars]
+        return make_response(
+            car.to_dict(),
+            200
+        )
 
-#     response = make_response(
-#         jsonify(dealership_cars_dict),
-#         200
-#     )
+
+@app.route('/dealership_cars/<int:id>', methods=['GET'])
+def dealershipCars(id):
+    dealership_cars = DealershipCar.query.filter_by(id = id).first()
+    dealership_cars_dict = dealership_cars.to_dict() 
+
+    response = make_response(
+        jsonify(dealership_cars_dict),
+        200
+    )
 
     return response
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
+
+# @app.route('/edit/<int:id>', methods=['PATCH'])
+# def patch(id):
+#     car = Car.query.filter(Car.id == id).first()
+
+#     if not car:
+#         return make_response({ 'error': 'Car not found!' }, 404)
+    
+#     for attr in request.get_json():
+#         setattr(car, attr, request.get_json()[attr])
+
+#     db.session.add(car)
+#     db.session.commit()
+
+#     return make_response(
+#         car.to_dict(),
+#         200
+#     )

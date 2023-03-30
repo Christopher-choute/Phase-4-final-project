@@ -123,7 +123,7 @@ with app.app_context():
     dc59 = DealershipCar(car= car29, dealership= Danilovich)
     dc60 = DealershipCar(car= car30, dealership= Taylor)
 
-    dealershipCars = [dc2,dc3,dc4,dc5,dc6,dc7,dc8,dc9,dc10,dc11,dc12,dc13,dc14,dc15,dc16,dc17,dc18,dc19,dc20,dc21,dc22,dc23,dc24,dc25,dc26,dc27,dc28,dc29,dc30,dc31,dc32,dc33,dc34,dc35,dc36,dc37,dc38,dc39,dc40,dc41,dc42,dc43,dc44,dc45,dc46,dc47,dc48,dc49,dc50,dc51,dc52,dc53,dc54,dc55,dc56,dc57,dc58,dc59,dc60]
+    dealershipCars = [dc1,dc2,dc3,dc4,dc5,dc6,dc7,dc8,dc9,dc10,dc11,dc12,dc13,dc14,dc15,dc16,dc17,dc18,dc19,dc20,dc21,dc22,dc23,dc24,dc25,dc26,dc27,dc28,dc29,dc30,dc31,dc32,dc33,dc34,dc35,dc36,dc37,dc38,dc39,dc40,dc41,dc42,dc43,dc44,dc45,dc46,dc47,dc48,dc49,dc50,dc51,dc52,dc53,dc54,dc55,dc56,dc57,dc58,dc59,dc60]
 
     db.session.add_all(cars)
     db.session.add_all(dealerships)
