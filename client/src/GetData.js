@@ -68,13 +68,13 @@ function GetData(){
                     <BuyCars cars = {filteredCars}  />
                 </Route>
 
-                <Route path="/cars/:id">
+                <Route exact path="/cars/:id">
                     <Header />
                     <Nav />
                     <Car  deleteItem={deleteItem} />
                 </Route>
 
-                <Route exact path="/SellCars">
+                <Route path="/SellCars">
                     <Header />
                     <Nav />
                     <SellCars handleNewCar={handleNewCar}/>

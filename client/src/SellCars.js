@@ -13,7 +13,7 @@ function SellCars({handleNewCar}){
     const [image, setImage] = useState("");
     const [used, setUsed] = useState(false);
     const [val, setVal] = useState("")
-    const [isLoading, updateIsLoading] = useState(false);
+    const history = useHistory();
 
     function handleMake(make) {
         setMake(make.target.value);
@@ -38,6 +38,7 @@ function SellCars({handleNewCar}){
       }
 
     function handleUsed(val) {
+        setVal(val.target.value);
         if (val === "New" || val === "new"){
             setUsed(false);
         }
@@ -50,10 +51,8 @@ function SellCars({handleNewCar}){
 
     }
 
-      function handleSubmit(event){
-        event.preventDefault();
-        updateIsLoading(true);
-        fetch("http://localhost:5555/cars", {
+      function handleSubmit(){
+        fetch("/cars", {
             method: "POST",
             headers: {
               Accept: "application/json",
@@ -67,9 +66,15 @@ function SellCars({handleNewCar}){
                 image: image,
                 used: used,
               }),
-            }).then((response) => {
-                updateIsLoading(false);
-            });
+            }).then((res) => {
+                if (res.ok) {
+                    res.json().then(() => {
+                        history.push('/cars')
+                        window.location.reload();
+                    })
+                    
+                }
+            })
       }
     
     
@@ -139,7 +144,7 @@ function SellCars({handleNewCar}){
                     name = 'used'
                     placeholder="Is your car 'New' or 'Used' "
                     className = 'input_checkbox'
-                    onClick = {handleUsed}
+                    onChange = {handleUsed}
                     value = {val}
                 />
             </Form.Field>
