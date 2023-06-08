@@ -21,19 +21,6 @@ function Car({deleteItem}){
         .then((data) => getCar(data))
       },[]);
 
-    // useEffect(() => {
-    //   fetch(`http://127.0.0.1:5555/dealership_cars/${id}`)
-    //   .then(res => res.json())
-    //   .then((data) => getCar(data))
-    // },[]);
-      
-        // useEffect(() => {
-        //   fetch('http://127.0.0.1:5555/cars/${id}', 
-        //   { method: 'DELETE' })
-        //         .then(() => setStatus('Delete successful'));
-        
-        // }, []);
-    
      console.log(id)
 
 
@@ -45,9 +32,9 @@ function Car({deleteItem}){
         setImage(car.image);
         setUsed(car.used);
       }
-      const linkStyle = {
-        textDecoration: "none"
-    }
+    //   const linkStyle = {
+    //     textDecoration: "none"
+    // }
 
     return(
         <div className = 'cont'>

@@ -8,7 +8,8 @@ function CarSlot({id, make, model, price, year, used, image}){
     }
     
     return (
-        <div className = "carslot" ><Link to={`cars/${id}` } style={linkStyle}>
+        <div className = "carslot" >
+            <Link to={`cars/${id}` } style={linkStyle}>
             <img className ="Image" src = {image} alt = {make} />
             <p>Make: {make}</p>
             <p>Model: {model}</p>

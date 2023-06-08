@@ -101,7 +101,7 @@ def carById(id):
 
         if not car:
             response = make_response(
-                {"error": "Car not fount"},
+                {"error": "Car not found"},
                 404
             )
             return response

@@ -91,7 +91,6 @@ with app.app_context():
     dc29 = DealershipCar(car= car29, dealership= Chouter)
     dc30 = DealershipCar(car= car30, dealership= Elsais)
 
-
     dc31 = DealershipCar(car = car1, dealership = Danilovich)
     dc32= DealershipCar(car= car2, dealership= Taylor)
     dc33= DealershipCar(car= car3, dealership= Chouter)
