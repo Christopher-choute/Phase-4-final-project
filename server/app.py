@@ -43,13 +43,14 @@ def car():
                 model = request.get_json()['model'],
                 year = request.get_json()['year'],
                 price = request.get_json()['price'],
-                image = request.get_json()['image']
+                image = request.get_json()['image'],
+                used = request.get_json()['used']
             )
             db.session.add(new_car)
             db.session.commit()
 
             response = make_response(
-                jsonify(new_car),
+                jsonify(new_car.to_dict()),
                 201
             )
 

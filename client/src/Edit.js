@@ -1,7 +1,6 @@
 import React, {useState ,useEffect} from "react";
 import {useHistory ,useParams} from "react-router-dom"
 import {Form, Button} from"semantic-ui-react"
-// import {Formik,Field,ErrorMessage} from 'formik';
 import './Edit.css'
 
 function Edit({updateCar}){
@@ -13,7 +12,7 @@ function Edit({updateCar}){
     const [year, setYear] = useState("");
     const [image, setImage] = useState("");
     const [used, setUsed] = useState(false);
-    const [val, setVal] = useState("")
+    const [val, setVal] = useState("");
     const [isLoading, updateIsLoading] = useState(false);
     const [car, setCar] =useState([]);
 
@@ -42,17 +41,20 @@ function Edit({updateCar}){
       }
 
     function handleUsed(val) {
-        if (val === "New" || val === "new"){
-            setUsed(false);
-        }
-        else if (val === "Used" || val === "used"){
-            setUsed(true);
-        }
-        else {
-            const e = new Error('Has to be "Used" or "New"');
-        }
-
+        setVal(val.target.value);
+    
+        // if (val === "New" || val === "new"){
+        //     setUsed(false);
+        // }
+        // else if (val === "Used" || val === "used"){
+        //     setUsed(true);
+        // }
+        // else {
+        //     const e = new Error('Has to be "Used" or "New"');
+        // }
     }
+
+    
 
     function handlePatch(id){
         fetch(`/cars/${id}`, {
@@ -146,11 +148,11 @@ function Edit({updateCar}){
             <Form.Field>
                 <label>New or Used:</label>
                 <input 
-                    type = 'text'
-                    name = 'used'
+                    type = "text"
+                    name = "used"
                     placeholder="Is your car 'New' or 'Used' "
-                    className = 'input_checkbox'
-                    onClick = {handleUsed}
+                    className = "input-text"
+                    onChange = {handleUsed}
                     value = {val}
                 />
             </Form.Field>
